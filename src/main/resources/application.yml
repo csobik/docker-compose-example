@@ -9,5 +9,5 @@ spring:
 
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/db_example
-    username: admin
+    username: root
     password: Password1122

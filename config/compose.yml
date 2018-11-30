@@ -1,0 +1,13 @@
+version: '3'
+services:
+  example-db:
+      image: mariadb:10.3.8
+      ports:
+        - "3306:3306"
+      environment:
+        MYSQL_ROOT_PASSWORD: Password1122
+        MYSQL_DATABASE: db_example
+      hostname: db
+      volumes:
+        - "./mariadb-config/:/etc/mysql/conf.d/"
+      tmpfs: "/var/lib/mysql"
