@@ -1,0 +1,13 @@
+spring:
+  profiles.active: development
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MariaDB53Dialect
+    hibernate:
+      ddl-auto: create
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/db_example
+    username: admin
+    password: Password1122

@@ -7,29 +7,28 @@ buildscript {
     }
 }
 
-// Apply the java plugin to add support for Java
 apply plugin: 'java'
-
-// Apply the application plugin to add support for building an application
-//apply plugin: 'application'
-
-// Apply plugin for idea
 apply plugin: 'idea'
-
-// Apply Spring Boot plugin
 apply plugin: 'org.springframework.boot'
 
-// Define the main class for the application
-group = 'org.csobik'
-version = '0.0.1-SNAPSHOT'
+bootJar {
+    group = 'org.csobik'
+    baseName = 'docker-compose-example'
+    version = '0.0.1-SNAPSHOT'
+}
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
     compile(
-            "org.springframework.boot:spring-boot-starter:${springBootVersion}",
             "org.springframework.boot:spring-boot-starter-web:${springBootVersion}",
+            "org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}",
+            "mysql:mysql-connector-java:${mysqlConnector}"
+    )
+
+    compileOnly(
+            "org.projectlombok:lombok:${lombokVersion}"
     )
 
     testCompile (
