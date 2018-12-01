@@ -1,20 +1,37 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            url "https://repo.spring.io/plugins-release/"
+        }
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}",
+                "com.avast.gradle:gradle-docker-compose-plugin:${dockerComposePluginVersion}",
+                "com.bmuschko:gradle-docker-plugin:${gradleDockerPluginVersion}"
+        )
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'docker-compose'
+apply plugin: 'com.bmuschko.docker-java-application'
+
+
+dockerCompose {
+    useComposeFiles = ["config/compose.yml"]
+}
 
 bootJar {
     group = 'org.csobik'
     baseName = 'docker-compose-example'
-    version = '0.0.1-SNAPSHOT'
+    version = null
+    classifier = 'executable'
 }
 
 sourceCompatibility = 1.8
@@ -42,4 +59,18 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
     mavenCentral()
+}
+
+// build docker image
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+task buildDockerImage(type: DockerBuildImage, dependsOn: [bootJar]) {
+    doFirst {
+        copy {
+            from 'config/Dockerfile'
+            into 'build/libs'
+        }
+    }
+    tag = "example/docker-compose-example:latest"
+    inputDir = project.file('build/libs')
+
 }

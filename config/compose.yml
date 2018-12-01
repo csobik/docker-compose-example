@@ -1,6 +1,18 @@
 version: '3'
 services:
 
+  user-service:
+    image: example/docker-compose-example:latest
+    ports:
+    - "8080:8080"
+    depends_on:
+    - example-db
+    environment:
+      SPRING_PROFILES_ACTIVE: test
+      SPRING_DATASOURCE_URL: jdbc:mysql://example-db:3306/db_example
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: Password1122
+
   adminer:
     image: adminer
     restart: always
