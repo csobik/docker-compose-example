@@ -12,7 +12,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}",
                 "com.avast.gradle:gradle-docker-compose-plugin:${dockerComposePluginVersion}",
                 "com.bmuschko:gradle-docker-plugin:${gradleDockerPluginVersion}",
-                "com.netflix.nebula:nebula-release-plugin:7.0.0"
+                "com.netflix.nebula:nebula-release-plugin:10.1.1"
         )
     }
 }
@@ -45,9 +45,8 @@ dependencies {
             "mysql:mysql-connector-java:${mysqlConnector}"
     )
 
-    compileOnly(
-            "org.projectlombok:lombok:${lombokVersion}"
-    )
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
 
     testCompile (
             'junit:junit:4.12'
@@ -60,11 +59,6 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
     mavenCentral()
-}
-
-release { (3)
-    // Let the default versioning strategy be the maven style -SNAPSHOT, instead of nebula's devSnapshot
-    defaultVersionStrategy = org.ajoberstar.gradle.git.release.opinion.Strategies.SNAPSHOT
 }
 
 // tasks.release.finalizedBy tasks.publish (4)
