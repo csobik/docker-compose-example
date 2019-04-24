@@ -63,6 +63,13 @@ repositories {
     mavenCentral()
 }
 
+release { (3)
+    // Let the default versioning strategy be the maven style -SNAPSHOT, instead of nebula's devSnapshot
+    defaultVersionStrategy = org.ajoberstar.gradle.git.release.opinion.Strategies.SNAPSHOT
+}
+
+// tasks.release.finalizedBy tasks.publish (4)
+
 // build docker image
 import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
 task buildDockerImage(type: DockerBuildImage, dependsOn: [bootJar]) {
