@@ -32,7 +32,6 @@ dockerCompose {
 bootJar {
     group = 'org.csobik'
     baseName = 'docker-compose-example'
-    version = '1.0.0'
     classifier = 'executable'
 }
 
